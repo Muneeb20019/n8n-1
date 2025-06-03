@@ -1,0 +1,617 @@
+{
+  "name": "Email classifier",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyHour"
+            }
+          ]
+        },
+        "filters": {}
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -760,
+        260
+      ],
+      "id": "YOUR_GMAIL_TRIGGER_NODE_ID_HERE",
+      "name": "Gmail Trigger",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YOUR_GMAIL_CREDENTIAL_ID_HERE",
+          "name": "User Gmail Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputText": "=Subject: {{ $json.Subject }}\nEmail body:{{ $json.snippet }}",
+        "categories": {
+          "categories": [
+            {
+              "category": "Promotions",
+              "description": "Emails related to sales, discounts,promotions of their respective business , marketing campaigns, or special offers."
+            },
+            {
+              "category": "Sales",
+              "description": "Emails related to selling products or services, including inquiries, follow-ups, proposals, and lead generation."
+            },
+            {
+              "category": "Recruitment",
+              "description": "Emails requesting documents, information, approvals, or fulfilling specific business needs."
+            },
+            {
+              "category": "Health",
+              "description": "Classifies emails related to medical appointments, prescriptions, lab results, health insurance, wellness programs, and other healthcare-related topics."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1,
+      "position": [
+        -540,
+        260
+      ],
+      "id": "2556d7de-e515-4f4e-b5d6-fc7a02d474fe",
+      "name": "Text Classifier"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -640,
+        440
+      ],
+      "id": "ff25d93c-d37d-42b0-94d0-edcebb7dd918",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "YOUR_OPENAI_CREDENTIAL_ID_HERE",
+          "name": "User OpenAI Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "Label_3898474445476321875"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "20c6a7e6-bdeb-4d47-9a93-d3d3ded0e1f4",
+      "name": "Promotions",
+      // "webhookId": "YOUR_GENERATED_WEBHOOK_ID_HERE", // Removed as per recommendation
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YOUR_GMAIL_CREDENTIAL_ID_HERE",
+          "name": "User Gmail Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "Label_1663782861606455023"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        200
+      ],
+      "id": "f2db75f4-b791-4f8b-8eee-82a13ce1e5a2",
+      "name": "Sales",
+      // "webhookId": "YOUR_GENERATED_WEBHOOK_ID_HERE", // Removed as per recommendation
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YOUR_GMAIL_CREDENTIAL_ID_HERE",
+          "name": "User Gmail Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "Label_5000405093788954927"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        420
+      ],
+      "id": "2b33b1f2-3c25-46f7-89be-acd7157d8dc1",
+      "name": "Recruitment",
+      // "webhookId": "YOUR_GENERATED_WEBHOOK_ID_HERE", // Removed as per recommendation
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YOUR_GMAIL_CREDENTIAL_ID_HERE",
+          "name": "User Gmail Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "Label_302732630268239625"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        660
+      ],
+      "id": "d302c01e-5645-4201-80df-37132cc7c9f0",
+      "name": "Health",
+      // "webhookId": "YOUR_GENERATED_WEBHOOK_ID_HERE", // Removed as per recommendation
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YOUR_GMAIL_CREDENTIAL_ID_HERE",
+          "name": "User Gmail Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "markAsRead",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}"
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        220,
+        0
+      ],
+      "id": "ab61f88c-5822-48da-b7d4-6959524b44c1",
+      "name": "Gmail",
+      // "webhookId": "YOUR_GENERATED_WEBHOOK_ID_HERE", // Removed as per recommendation
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YOUR_GMAIL_CREDENTIAL_ID_HERE",
+          "name": "User Gmail Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "you are an intelligent bot for summarizing an email ",
+              "role": "system"
+            },
+            {
+              "content": "=Subject: {{ $('Gmail Trigger').item.json.Subject }}\nEmail Body:{{ $('Gmail Trigger').item.json.snippet }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        220,
+        200
+      ],
+      "id": "28d6c2a0-b889-4244-9bbb-94d7f62dc416",
+      "name": "OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "YOUR_OPENAI_CREDENTIAL_ID_HERE",
+          "name": "User OpenAI Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "15zPhKFZf59pT4GFWpVn-nkl4iu3N4_1IW8wVN18ag9M",
+          "mode": "list",
+          "cachedResultName": "email summary n8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15zPhKFZf59pT4GFWpVn-nkl4iu3N4_1IW8wVN18ag9M/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15zPhKFZf59pT4GFWpVn-nkl4iu3N4_1IW8wVN18ag9M/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ID": "={{ $('Gmail Trigger').item.json.id }}",
+            "DATE ": "={{ $now }}",
+            "SUBJECT LINE": "={{ $('Gmail Trigger').item.json.Subject }}",
+            "SUMMARY": "={{ $json.message.content }}",
+            "SNIPPET": "={{ $('Gmail Trigger').item.json.snippet }}"
+          },
+          "matchingColumns": [
+            "ID"
+          ],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "DATE ",
+              "displayName": "DATE ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "SUBJECT LINE",
+              "displayName": "SUBJECT LINE",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "SUMMARY",
+              "displayName": "SUMMARY",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "SNIPPET",
+              "displayName": "SNIPPET",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        580,
+        200
+      ],
+      "id": "YOUR_GOOGLE_SHEETS_NODE_ID_HERE", // Corrected this to be a node ID placeholder
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YOUR_GOOGLE_SHEETS_CREDENTIAL_ID_HERE",
+          "name": "User Google Sheets Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "draft",
+        "subject": "={{ $json.message.content.subjectLine }}",
+        "message": "={{ $json.message.content.emailBody }}",
+        "options": {
+          "threadId": "={{ $('Gmail Trigger').item.json.threadId }}",
+          "sendTo": "={{ $('Text Classifier').item.json.From }}"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        580,
+        420
+      ],
+      "id": "f9808299-afe5-4d51-ad8d-590d163a547e",
+      "name": "Gmail1",
+      // "webhookId": "YOUR_GENERATED_WEBHOOK_ID_HERE", // Removed as per recommendation
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YOUR_GMAIL_CREDENTIAL_ID_HERE",
+          "name": "User Gmail Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "you are an intelligent bot for creating a reply for an email.",
+              "role": "system"
+            },
+            {
+              "content": "=Here is the email to reply,\nSubject: {{ $('Gmail Trigger').item.json.Subject }}\nEmail Body:{{ $('Gmail Trigger').item.json.snippet }}\nthis email is from {{ $('Gmail Trigger').item.json.From }}"
+            },
+            {
+              "content": "=please format the data in JSON format:\n{\n  \"subjectLine\": \"\",\n  \"emailBody\": \"\"\n}",
+              "role": "assistant"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        220,
+        420
+      ],
+      "id": "c5c74282-172c-4812-b29d-2a4c5133ef9f",
+      "name": "OpenAI1",
+      "credentials": {
+        "openAiApi": {
+          "id": "YOUR_OPENAI_CREDENTIAL_ID_HERE",
+          "name": "User OpenAI Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "you are an intelligent bot for reply a sales email.",
+              "role": "system"
+            },
+            {
+              "content": "=Here is the email to reply,\nSubject: {{ $('Gmail Trigger').item.json.Subject }}\nEmail Body:{{ $('Gmail Trigger').item.json.snippet }}\nthis email is from {{ $('Gmail Trigger').item.json.From }}"
+            },
+            {
+              "content": "=please format the data in JSON format:\n{\n  \"subjectLine\": \"\",\n  \"emailBody\": \"\"\n}",
+              "role": "assistant"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        220,
+        660
+      ],
+      "id": "e61db4f4-6717-48f4-b21e-394b795a5727",
+      "name": "OpenAI2",
+      "credentials": {
+        "openAiApi": {
+          "id": "YOUR_OPENAI_CREDENTIAL_ID_HERE",
+          "name": "User OpenAI Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ $('Health').item.json.id }}",
+        "message": "={{ $json.message.content.emailBody }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        580,
+        660
+      ],
+      "id": "dc054ba9-f8bd-4273-9eb3-944a79c97383",
+      "name": "Gmail3",
+      // "webhookId": "YOUR_GENERATED_WEBHOOK_ID_HERE", // Removed as per recommendation
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YOUR_GMAIL_CREDENTIAL_ID_HERE",
+          "name": "User Gmail Account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Classifier": {
+      "main": [
+        [
+          {
+            "node": "Promotions",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Sales",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Recruitment",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Health",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Promotions": {
+      "main": [
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sales": {
+      "main": [
+        [
+          {
+            "node": "OpenAI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recruitment": {
+      "main": [
+        [
+          {
+            "node": "OpenAI1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI1": {
+      "main": [
+        [
+          {
+            "node": "Gmail1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI2": {
+      "main": [
+        [
+          {
+            "node": "Gmail3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Health": {
+      "main": [
+        [
+          {
+            "node": "OpenAI2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "9c0298df-1204-43a1-b20a-a7eaef3ea94f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "eaa9a2673fc25961f5be0b649cce5420d2291106b434a24a34ea74bd23f129d4"
+  },
+  "id": "9fonJqNilzyWXLTI",
+  "tags": []
+}
