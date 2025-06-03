@@ -130,8 +130,7 @@ Once the workflow is activated, it will run automatically based on the schedule 
 
 ## Author
 
-* [Your Name Here] ([LinkedIn Profile URL](https://www.linkedin.com/in/YOUR_LINKEDIN_PROFILE/))
-* [Your Website/Portfolio URL (Optional)]
+* [Muneeb Ali Khan](https://www.linkedin.com/in/muneebalikhan/)
 
 ---
 
