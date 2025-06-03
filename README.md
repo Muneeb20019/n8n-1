@@ -130,8 +130,7 @@ Once the workflow is activated, it will run automatically based on the schedule 
 
 ## Author
 
-* [Muneeb Ali Khan](https://www.linkedin.com/in/muneebalikhan/)
-
+* [Muneeb Ali Khan]  (https://www.linkedin.com/in/muneeb-ali-khan-2a1675365)
 ---
 
 ## License
