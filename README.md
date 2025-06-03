@@ -115,7 +115,7 @@ Once the workflow is activated, it will run automatically based on the schedule 
 * **Google Sheet Logging:** Check your designated Google Sheet. A new row should be added with the email's ID, the current date, its subject line, a summarized version, and the original snippet.
 * **AI-Generated Replies (Drafts):** For emails classified as "Recruitment" or "Health", a draft reply will be created in your Gmail account. Review and send these as needed.
 * **Marked as Read:** The processed email will be marked as read in your Gmail inbox.
-* 
+  
 ---
 
 ## Future Enhancements
