@@ -7,6 +7,7 @@ This project demonstrates an automated workflow built with n8n that classifies i
 ## Problem Statement
 
 Managing a high volume of incoming emails can be a time-consuming and often overwhelming task. Without proper automation, individuals and businesses can struggle with:
+
 * **Manual Classification:** Categorizing emails by hand into "Promotions," "Sales," "Recruitment," "Health," etc., is repetitive and prone to human error.
 * **Delayed Responses:** Important emails (e.g., sales inquiries, recruitment applications) might get buried, leading to missed opportunities or poor customer/candidate experience.
 * **Information Overload:** Quickly grasping the core content of many emails requires reading through them all, which is inefficient.
@@ -19,18 +20,19 @@ This workflow aims to streamline email management, ensuring that critical emails
 ## Solution Overview
 
 This n8n workflow automates the entire process of email management. It functions as an intelligent email assistant that:
-1.  **Monitors incoming Gmail emails.**
-2.  **Analyzes email content** (subject and body snippet) using a powerful AI model (OpenAI's GPT-4o-mini).
-3.  **Classifies emails** into predefined categories.
-4.  **Applies corresponding labels** in Gmail.
-5.  **Summarizes email content** for quick overview.
-6.  **Logs classified and summarized data** to a Google Sheet.
-7.  **Generates AI-powered draft replies** for specific email types (e.g., Recruitment, Health inquiries) to facilitate rapid communication.
-8.  **Marks emails as read** once processed.
 
-**Workflow:**
-*(Once you've uploaded your workflow screenshot to `assets/`, uncomment and update the path below)*
-*(Example: `![Workflow Diagram](assets/Screenshot_2025-06-01_9.04.50_PM.png)` if that's your filename)*
+* Monitors incoming Gmail emails.
+* Analyzes email content (subject and body snippet) using a powerful AI model (OpenAI's GPT-4o-mini).
+* Classifies emails into predefined categories.
+* Applies corresponding labels in Gmail.
+* Summarizes email content for quick overview.
+* Logs classified and summarized data to a Google Sheet.
+* Generates AI-powered draft replies for specific email types (e.g., Recruitment, Health inquiries) to facilitate rapid communication.
+* Marks emails as read once processed.
+
+### Workflow Diagram:
+
+![Workflow Diagram](assets/Screenshot_2025-06-01_9.04.50_PM.png)
 
 ---
 
@@ -74,12 +76,11 @@ To set up and run this workflow, you will need the following prerequisites and f
 
 1.  **Clone the Repository:**
     ```bash
-    git clone [https://github.com/YOUR_USERNAME/n8n-1.git](https://github.com/YOUR_USERNAME/n8n-1.git)
+    git clone https://github.com/YOUR_USERNAME/n8n-1.git
     cd n8n-1
     ```
 2.  **Download the Workflow JSON:**
-    The workflow JSON is located in the `workflows/` directory.
-    `workflows/email_classifier.json`
+    The workflow JSON is located in the `workflows/` directory: `workflows/email_classifier.json`
 3.  **Import into n8n:**
     * Open your n8n instance in your web browser.
     * Navigate to the "Workflows" section in the left sidebar.
@@ -98,8 +99,8 @@ To set up and run this workflow, you will need the following prerequisites and f
 6.  **Configure Gmail Label Nodes:**
     * Locate the Gmail nodes named **"Promotions"**, **"Sales"**, **"Recruitment"**, and **"Health"**.
     * For each of these nodes, you will need to replace the placeholder `labelIds` with the actual **Label ID** from your Gmail account.
-        * To find a Gmail Label ID: Go to Gmail in your browser, click on the label in the sidebar. In the URL, you'll see something like `/#label/Label_123456789`. Copy the `Label_123456789` part.
-        * Example: Replace `Label_3898474445476321875` with your actual Promotions label ID.
+        * **To find a Gmail Label ID:** Go to Gmail in your browser, click on the label in the sidebar. In the URL, you'll see something like `/#label/Label_123456789`. Copy the `Label_123456789` part.
+        * Example: Replace `Label_3898474445476321875` with your actual Promotions label ID in the "Promotions" node, and so on for other labels.
 7.  **Activate Workflow:**
     * Once all credentials are linked and node-specific configurations (Google Sheet ID, Gmail Label IDs) are updated, click the **"Save"** button at the top of the workflow editor.
     * Then, click the **"Activate"** toggle switch (usually in the top right corner) to set the workflow live.
@@ -116,11 +117,14 @@ Once the workflow is activated, it will run automatically based on the schedule 
 * **AI-Generated Replies (Drafts):** For emails classified as "Recruitment" or "Health", a draft reply will be created in your Gmail account. Review and send these as needed.
 * **Marked as Read:** The processed email will be marked as read in your Gmail inbox.
 
-**Example Outputs:**
-*(Once you've uploaded your screenshots to `assets/`, uncomment and update the paths below)*
-*(Example: `![Gmail Labels Applied](assets/Screenshot_2025-06-01_9.09.23_PM.png)`)*
-*(Example: `![Google Sheet Output](assets/image_739bf4.png)`)*
-*(Example: `![Example AI-Generated Reply](assets/Screenshot_2025-06-02_8.05.19_PM.png)`)*
+### Example Outputs:
+
+* **Gmail Labels Applied:**
+    ![Gmail Labels Applied](assets/Screenshot_2025-06-01_9.09.23_PM.png)
+* **Google Sheet Output:**
+    ![Google Sheet Output](assets/image_739bf4.png)
+* **Example AI-Generated Reply:**
+    ![Example AI-Generated Reply](assets/Screenshot_2025-06-02_8.05.19_PM.png)
 
 ---
 
