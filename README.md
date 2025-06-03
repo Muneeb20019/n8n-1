@@ -32,7 +32,7 @@ This n8n workflow automates the entire process of email management. It functions
 
 ### Workflow Diagram:
 
-![Workflow Diagram](assets/Screenshot_2025-06-01_9.04.50_PM.png)
+![Workflow Diagram](assets/n8n_email_classifier_flow.png)
 
 ---
 
